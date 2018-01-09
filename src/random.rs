@@ -4,14 +4,25 @@ use rand::distributions::{IndependentSample, Range};
 use rand::Rng;
 
 #[derive(Clone, PartialEq)]
-pub struct Choice<T> {
+pub struct Selections<T> {
     pub nb: usize,
+    pub forced: Vec<T>,
     pub choices: Vec<T>
 }
 
-impl<T: Clone> Choice<T> {
-    pub fn new(nb: usize, choices: Vec<T>) -> Choice<T> {
-        Choice { nb, choices }
+impl<T: Clone + PartialEq> Selections<T> {
+    pub fn new(
+        nb: usize,
+        forced: Vec<T>,
+        mut choices: Vec<T>
+    ) -> Selections<T> {
+        // A forced option can't be in choices
+        for f in forced.iter() {
+            if let Some(idx) = choices.iter().position(|e| *e == *f) {
+                choices.remove(idx);
+            }
+        }
+        Selections { nb, forced, choices }
     }
 
     pub fn choose(self) -> Vec<T> {

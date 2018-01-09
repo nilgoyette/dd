@@ -1,10 +1,5 @@
 
-use ability::{Ability};
-use armor::ArmorProficiency;
-use hit_dice::HitDice;
-use random::Choice;
-use skill::Skill;
-use weapon::WeaponProficiency;
+use {Ability, ArmorProficiency, HitDice, Selections, Skill, WeaponProficiency};
 
 // http://engl393-dnd5th.wikia.com/wiki/Classes
 pub enum Class {
@@ -113,47 +108,47 @@ impl Class {
         st[0] == ability || st[1] == ability
     }
 
-    pub fn skills_choice(&self) -> Choice<Skill> {
+    pub fn skills_choice(&self) -> Selections<Skill> {
         match *self {
-            Class::Barbarian => Choice::new(2, vec![
+            Class::Barbarian => Selections::new(2, vec![], vec![
                 Skill::AnimalHandling, Skill::Athletics,
                 Skill::Intimidation, Skill::Nature,
                 Skill::Perception, Skill::Survival]),
-            Class::Bard => Choice::new(3, Skill::all()),
-            Class::Cleric => Choice::new(2, vec![
+            Class::Bard => Selections::new(3, vec![], Skill::all()),
+            Class::Cleric => Selections::new(2, vec![], vec![
                 Skill::History, Skill::Insight, Skill::Medicine,
                 Skill::Persuasion, Skill::Religion]),
-            Class::Druid => Choice::new(2, vec![
+            Class::Druid => Selections::new(2, vec![], vec![
                 Skill::Arcana, Skill::AnimalHandling, Skill::Insight,
                 Skill::Medicine, Skill::Nature, Skill::Perception,
                 Skill::Religion, Skill::Survival]),
-            Class::Fighter =>Choice::new(2, vec![
+            Class::Fighter => Selections::new(2, vec![], vec![
                 Skill::Acrobatics, Skill::AnimalHandling,
                 Skill::Athletics, Skill::History, Skill::Insight,
                 Skill::Intimidation, Skill::Perception, Skill::Survival]),
-            Class::Monk => Choice::new(2, vec![
+            Class::Monk => Selections::new(2, vec![], vec![
                 Skill::Acrobatics, Skill::Athletics, Skill::History,
                 Skill::Insight, Skill::Religion, Skill::Stealth]),
-            Class::Paladin => Choice::new(2, vec![
+            Class::Paladin => Selections::new(2, vec![], vec![
                 Skill::Athletics, Skill::Insight, Skill::Intimidation,
                 Skill::Medicine, Skill::Persuasion, Skill::Religion]),
-            Class::Ranger => Choice::new(3, vec![
+            Class::Ranger => Selections::new(3, vec![], vec![
                 Skill::AnimalHandling, Skill::Athletics, Skill::Insight,
                 Skill::Investigation, Skill::Nature, Skill::Perception,
                 Skill::Stealth, Skill::Survival]),
-            Class::Rogue => Choice::new(4, vec![
+            Class::Rogue => Selections::new(4, vec![], vec![
                 Skill::Acrobatics, Skill::Athletics, Skill::Deception,
                 Skill::Insight, Skill::Intimidation, Skill::Investigation,
                 Skill::Perception, Skill::Performance, Skill::Persuasion,
                 Skill::SleightOfHand, Skill::Stealth]),
-            Class::Sorcerer => Choice::new(2, vec![
+            Class::Sorcerer => Selections::new(2, vec![], vec![
                 Skill::Arcana, Skill::Deception, Skill::Insight,
                 Skill::Intimidation, Skill::Persuasion, Skill::Religion]),
-            Class::Warlock => Choice::new(2, vec![
+            Class::Warlock => Selections::new(2, vec![], vec![
                 Skill::Arcana, Skill::Deception, Skill::History,
                 Skill::Intimidation, Skill::Investigation,
                 Skill::Nature, Skill::Religion]),
-            Class::Wizard => Choice::new(2, vec![
+            Class::Wizard => Selections::new(2, vec![], vec![
                 Skill::Arcana, Skill::History, Skill::Insight,
                 Skill::Investigation, Skill::Medicine, Skill::Religion])
         }
