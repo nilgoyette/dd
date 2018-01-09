@@ -25,19 +25,26 @@ impl<T: Clone + PartialEq> Selections<T> {
         Selections { nb, forced, choices }
     }
 
-    pub fn choose(self) -> Vec<T> {
+    pub fn auto_select(self) -> Vec<T> {
         if self.nb == self.choices.len() {
-            return self.choices;
+            let mut selections = self.forced.clone();
+            selections.extend(self.choices);
+            return selections;
         }
 
         let mut rng = rand::thread_rng();
         if self.nb == 1 {
-            return vec![rng.choose(&self.choices).unwrap().clone()];
+            let mut selections = self.forced.clone();
+            selections.push(rng.choose(&self.choices).unwrap().clone());
+            return selections;
         }
 
         let mut all_choices = self.choices.clone();
         rng.shuffle(&mut all_choices);
-        all_choices[..self.nb].to_vec()
+
+        let mut selections = self.forced.clone();
+        selections.extend(all_choices[..self.nb].to_vec());
+        selections
     }
 }
 

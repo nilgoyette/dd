@@ -13,8 +13,8 @@ current form. Why?
   edition works. I did spent countless hours playing BG2 though. My point is
   I'm not the best person to code this lib!
 - There's a lot more work left to do than what's currently done. For example,
-  there's no handling of race (only an enum for now), languages, features,
-  spells, cantrips, etc.
+  there's no handling of race (only an enum for now), features, spells,
+  cantrips, etc.
 
 My goals with this project are:
 

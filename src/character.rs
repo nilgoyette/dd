@@ -1,11 +1,6 @@
 
-use ability::{Ability, Modifier};
-use background::Background;
-use class::Class;
-use skill::Skill;
-use race::Race;
 use random::d20;
-use {Alignment};
+use {Ability, Alignment, Background, Class, Language, Modifier, Skill, Race};
 
 pub struct Character {
     pub name: String,
@@ -13,6 +8,7 @@ pub struct Character {
     pub class: Class,
     pub background: Background,
     pub alignment: Alignment,
+    pub languages: Vec<Language>,
     pub skills: Vec<Skill>,
 
     pub strength: usize,
@@ -41,13 +37,13 @@ impl Character {
     // Alignment selon la race et la classe/kit
     // Abilities. Respecter min/max selon race/classe. Différentes méthodes d'allocation des points
     // Skills
-
     pub fn new(
         name: String,
         race: Race,
         class: Class,
         background: Background,
         alignment: Alignment,
+        languages: Vec<Language>,
         skills: Vec<Skill>,
         strength: usize,
         dexterity: usize,
@@ -58,7 +54,7 @@ impl Character {
     ) -> Character {
         let proficiency_bonus = class.proficiency_points(1);
         Character {
-            name, race, class, background, alignment, skills,
+            name, race, class, background, alignment, languages, skills,
             strength, dexterity, constitution, intelligence, wisdom, charisma,
             level: 1,
             proficiency_bonus,
@@ -68,6 +64,10 @@ impl Character {
             temporary_hp: 0, // TODO
             current_hp: 0 // TODO
         }
+    }
+
+    pub fn can_comprehend(&self, language: Language) -> bool {
+        self.languages.contains(&language)
     }
 
     pub fn ac(&self) -> isize {

@@ -1,7 +1,8 @@
 
 extern crate dd;
 
-use dd::{Ability, Alignment, Background, Character, Class, Race, Skill};
+use dd::{
+    Ability, Alignment, Background, Character, Class, Language, Race, Skill};
 
 #[test]
 fn test_human_fighter_lvl1() {
@@ -9,9 +10,12 @@ fn test_human_fighter_lvl1() {
         String::from("fighter"),
         Race::Human, Class::Fighter,
         Background::Soldier, Alignment::ChaoticGood,
+        Language::from_race(Race::Human).auto_select(),
         vec![Skill::Athletics, Skill::History,
              Skill::Intimidation, Skill::Perception],
         16, 9, 15, 13, 11, 14);
+    assert!(c.can_comprehend(Language::Common));
+    assert_eq!(c.languages.len(), 2);
     assert_eq!(c.ac(), 9); // Because no armor
     assert_eq!(c.initiative(), -1);
     assert_eq!(c.speed(), 0); // TODO
@@ -50,9 +54,13 @@ fn test_dragonborn_sorcerer_lvl1() {
         String::from("sorcerer"),
         Race::Dragonborn, Class::Sorcerer,
         Background::Outlander, Alignment::NeutralGood,
+        Language::from_race(Race::Dragonborn).auto_select(),
         vec![Skill::Arcana, Skill::Athletics,
              Skill::Intimidation, Skill::Survival],
         10, 13, 14, 10, 12, 16);
+    assert!(c.can_comprehend(Language::Common));
+    assert!(c.can_comprehend(Language::Draconic));
+    assert_eq!(c.languages.len(), 2);
     assert_eq!(c.ac(), 11); // TODO Dragonborn base ac is 13, so 14 here
     assert_eq!(c.initiative(), 1);
     assert_eq!(c.speed(), 0); // TODO
