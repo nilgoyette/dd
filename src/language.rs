@@ -81,15 +81,13 @@ impl Language {
         is_primordial(self.clone()) == is_primordial(rhs)
     }
 
-    /// Determines the standard language(s) "spoken" by each race.
-    /// Also return the number of other random language(s) this race can learn.
+    /// Returns the selection of language(s) (standard and choosen) that a
+    /// specific race is supposed to comprehend.
     pub fn from_race(race: Race) -> Selections<Language> {
-        // Do not call this if `Common` is not to be added
         fn common_and(mut languages: Vec<Language>) -> Selections<Language> {
             languages.push(Language::Common);
             Selections::new(0, languages, vec![])
         }
-
         fn common_and_choice(
             mut languages: Vec<Language>
         ) -> Selections<Language> {
@@ -165,8 +163,8 @@ impl Language {
         }
     }
 
-    /// Determines the standard language(s) "spoken" for each background.
-    /// Also return the number of other random language(s) this background can learn.
+    /// Returns the selection of language(s) (standard and choosen) that a
+    /// specific background is supposed to comprehend.
     pub fn bonus_from_background(
         background: Background
     ) -> Selections<Language> {
