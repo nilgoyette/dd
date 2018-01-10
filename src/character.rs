@@ -1,11 +1,12 @@
 
 use random::d20;
-use {Ability, Alignment, Background, Class, Language, Modifier, Skill, Race};
+use {Ability, Alignment, Background, Class, ClassFunctions, Language, Modifier,
+     Skill, Race};
 
 pub struct Character {
     pub name: String,
     pub race: Race,
-    pub class: Class,
+    pub class: Box<ClassFunctions>,
     pub background: Background,
     pub alignment: Alignment,
     pub languages: Vec<Language>,
@@ -52,6 +53,7 @@ impl Character {
         wisdom: usize,
         charisma: usize,
     ) -> Character {
+        let class = Class::new(class);
         let proficiency_bonus = class.proficiency_points(1);
         Character {
             name, race, class, background, alignment, languages, skills,

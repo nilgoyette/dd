@@ -30,7 +30,7 @@ pub use ability::{Ability, Modifier};
 pub use armor::{ArmorProficiency};
 pub use background::{Background};
 pub use character::{Character};
-pub use class::{Class};
+pub use class::{Class, ClassFunctions};
 pub use hit_dice::{HitDice};
 pub use language::{Language};
 pub use race::{Race};
