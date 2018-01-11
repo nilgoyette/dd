@@ -1,6 +1,6 @@
 
 // http://engl393-dnd5th.wikia.com/wiki/Backgrounds
-#[derive(Clone, PartialEq)]
+#[derive(Clone, Copy, PartialEq)]
 pub enum Background {
     Acolyte,
     Anthropologist,

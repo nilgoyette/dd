@@ -13,7 +13,7 @@ mod random;
 mod skill;
 mod weapon;
 
-#[derive(Clone, PartialEq)]
+#[derive(Clone, Copy, PartialEq)]
 pub enum Alignment {
     LawfulGood,
     NeutralGood,

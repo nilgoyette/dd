@@ -1,11 +1,11 @@
 
 use random::d20;
 use {Ability, Alignment, Background, Class, ClassFunctions, Language, Modifier,
-     Skill, Race};
+     Skill, Race, RaceFunctions};
 
 pub struct Character {
     pub name: String,
-    pub race: Race,
+    pub race: Box<RaceFunctions>,
     pub class: Box<ClassFunctions>,
     pub background: Background,
     pub alignment: Alignment,
@@ -53,14 +53,14 @@ impl Character {
         wisdom: usize,
         charisma: usize,
     ) -> Character {
+        let race = Race::new(race);
         let class = Class::new(class);
-        let proficiency_bonus = class.proficiency_points(1);
         Character {
+            proficiency_bonus: class.proficiency_points(1),
+            base_ac: race.base_ac() as isize,
             name, race, class, background, alignment, languages, skills,
             strength, dexterity, constitution, intelligence, wisdom, charisma,
             level: 1,
-            proficiency_bonus,
-            base_ac: 10,
             exp: 0,
             max_hp: 0, // TODO
             temporary_hp: 0, // TODO
@@ -82,7 +82,7 @@ impl Character {
     }
 
     pub fn speed(&self) -> usize {
-        0 // TODO
+        self.race.speed()
     }
 
     pub fn modifier_for(&self, ability: Ability) -> isize {

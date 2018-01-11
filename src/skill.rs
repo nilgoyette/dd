@@ -2,7 +2,7 @@
 use ability::Ability;
 use background::Background;
 
-#[derive(Clone, PartialEq)]
+#[derive(Clone, Copy, PartialEq)]
 pub enum Skill {
     Acrobatics,
     AnimalHandling,

@@ -27,6 +27,7 @@ pub use self::wizard::Wizard;
 use {Ability, ArmorProficiency, HitDice, Selections, Skill, WeaponProficiency};
 
 // http://engl393-dnd5th.wikia.com/wiki/Classes
+#[derive(Clone, Copy, PartialEq)]
 pub enum Class {
     Barbarian,
     Bard,

@@ -2,7 +2,7 @@
 use ability::{Modifier};
 use random::{d6, d8, d10, d12};
 
-#[derive(Clone, PartialEq)]
+#[derive(Clone, Copy, PartialEq)]
 pub enum HitDice {
     D6, D8, D10, D12
 }
