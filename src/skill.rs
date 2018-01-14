@@ -1,6 +1,5 @@
 
-use ability::Ability;
-use background::Background;
+use {Ability, Background, Selections};
 
 #[derive(Clone, Copy, PartialEq)]
 pub enum Skill {
@@ -64,138 +63,147 @@ impl Skill {
     }
 
     // http://engl393-dnd5th.wikia.com/wiki/Backgrounds
-    pub fn from_background(
-        background: Background
-    ) -> (Vec<Skill>, (usize, Vec<Skill>)) {
-        let no_choice = (0, vec![]);
+    pub fn from_background(background: Background) -> Selections<Skill> {
+        fn only_forced(forced: Vec<Skill>) -> Selections<Skill> {
+            Selections::new(0, forced, vec![])
+        }
+
         match background {
             Background::Acolyte
-                => (vec![Skill::Insight, Skill::Religion], no_choice),
+                => only_forced(vec![Skill::Insight, Skill::Religion]),
             Background::Anthropologist
-                => (vec![Skill::Insight, Skill::Religion], no_choice),
+                => only_forced(vec![Skill::Insight, Skill::Religion]),
             Background::Archaeologist
-                => (vec![Skill::History, Skill::Survival], no_choice),
+                => only_forced(vec![Skill::History, Skill::Survival]),
             Background::BlackFistDoubleAgent
-                => (vec![Skill::Deception, Skill::Insight], no_choice),
+                => only_forced(vec![Skill::Deception, Skill::Insight]),
             Background::CaravanSpecialist
-                => (vec![Skill::AnimalHandling, Skill::Survival], no_choice),
+                => only_forced(vec![Skill::AnimalHandling, Skill::Survival]),
             Background::Charlatan
-                => (vec![Skill::Deception, Skill::SleightOfHand], no_choice),
+                => only_forced(vec![Skill::Deception, Skill::SleightOfHand]),
             Background::CityWatch
-                => (vec![Skill::Athletics, Skill::Insight], no_choice),
+                => only_forced(vec![Skill::Athletics, Skill::Insight]),
             Background::ClanCrafter
-                => (vec![Skill::History, Skill::Insight], no_choice),
+                => only_forced(vec![Skill::History, Skill::Insight]),
             Background::CloisteredScholar
-                => (vec![Skill::History],  (1, vec![Skill::Arcana,
-                                                    Skill::Nature,
-                                                    Skill::Religion])),
+                => Selections::new(
+                    1, vec![Skill::History], vec![Skill::Arcana,
+                                                  Skill::Nature,
+                                                  Skill::Religion]),
             Background::CormanthorRefugee
-                => (vec![Skill::Nature, Skill::Survival], no_choice),
+                => only_forced(vec![Skill::Nature, Skill::Survival]),
             Background::Courtier
-                => (vec![Skill::Insight, Skill::Persuasion], no_choice),
+                => only_forced(vec![Skill::Insight, Skill::Persuasion]),
             Background::Criminal
-                => (vec![Skill::Deception, Skill::Stealth], no_choice),
+                => only_forced(vec![Skill::Deception, Skill::Stealth]),
             Background::Dissenter
-                => (vec![], no_choice),
+                => only_forced(vec![]),
             Background::DragonCasualty
-                => (vec![Skill::Intimidation, Skill::Survival], no_choice),
+                => only_forced(vec![Skill::Intimidation, Skill::Survival]),
             Background::EarthspurMiner
-                => (vec![Skill::Athletics, Skill::Survival], no_choice),
+                => only_forced(vec![Skill::Athletics, Skill::Survival]),
             Background::Entertainer
-                => (vec![Skill::Acrobatics, Skill::Performance], no_choice),
+                => only_forced(vec![Skill::Acrobatics, Skill::Performance]),
             // TODO Faction Agent's second skill depends on the
             // character's faction. "one Intelligence, Wisdom, or Charisma
             // skill of your choice, as appropriate to your faction "
-            Background::FactionAgent => (vec![Skill::Insight], no_choice),
+            Background::FactionAgent => {
+                let mut choices = Ability::Charisma.skills();
+                choices.extend(Ability::Intelligence.skills());
+                choices.extend(Ability::Wisdom.skills());
+                Selections::new(1, vec![Skill::Insight], choices)
+            },
             Background::FarTraveler
-                => (vec![Skill::Insight, Skill::Perception], no_choice),
+                => only_forced(vec![Skill::Insight, Skill::Perception]),
             Background::FolkHero
-                => (vec![Skill::AnimalHandling, Skill::Survival], no_choice),
+                => only_forced(vec![Skill::AnimalHandling, Skill::Survival]),
             Background::GateUrchin
-                => (vec![Skill::Deception, Skill::SleightOfHand], no_choice),
+                => only_forced(vec![Skill::Deception, Skill::SleightOfHand]),
             Background::Gladiator
-                => (vec![Skill::Acrobatics, Skill::Performance], no_choice),
+                => only_forced(vec![Skill::Acrobatics, Skill::Performance]),
             Background::GuildArtisan
-                => (vec![Skill::Insight, Skill::Persuasion], no_choice),
+                => only_forced(vec![Skill::Insight, Skill::Persuasion]),
             Background::GuildMerchant
-                => (vec![Skill::Insight, Skill::Persuasion], no_choice),
+                => only_forced(vec![Skill::Insight, Skill::Persuasion]),
             Background::Harborfolk
-                => (vec![Skill::Athletics, Skill::SleightOfHand], no_choice),
+                => only_forced(vec![Skill::Athletics, Skill::SleightOfHand]),
             Background::HauntedOne
-                => (vec![], (2, vec![Skill::Arcana,
-                                     Skill::Investigation,
-                                     Skill::Religion,
-                                     Skill::Survival])),
+                => Selections::new(2, vec![], vec![Skill::Arcana,
+                                                   Skill::Investigation,
+                                                   Skill::Religion,
+                                                   Skill::Survival]),
             Background::Heretic
-                => (vec![Skill::Deception, Skill::Religion], no_choice),
+                => only_forced(vec![Skill::Deception, Skill::Religion]),
             Background::Hermit
-                => (vec![Skill::Medicine, Skill::Religion], no_choice),
+                => only_forced(vec![Skill::Medicine, Skill::Religion]),
             Background::HillsfarMerchant
-                => (vec![Skill::Insight, Skill::Persuasion], no_choice),
+                => only_forced(vec![Skill::Insight, Skill::Persuasion]),
             Background::HillsfarSmuggler
-                => (vec![Skill::Perception, Skill::Stealth], no_choice),
+                => only_forced(vec![Skill::Perception, Skill::Stealth]),
             Background::Inheritor
-                => (vec![Skill::Survival], (1, vec![Skill::Arcana,
-                                                    Skill::History,
-                                                    Skill::Religion])),
+                => Selections::new(
+                    1, vec![Skill::Survival], vec![Skill::Arcana,
+                                                   Skill::History,
+                                                   Skill::Religion]),
             Background::Initiate
-                => (vec![Skill::Athletics, Skill::Intimidation], no_choice),
+                => only_forced(vec![Skill::Athletics, Skill::Intimidation]),
             Background::Inquisitor
-                => (vec![Skill::Investigation, Skill::Religion], no_choice),
+                => only_forced(vec![Skill::Investigation, Skill::Religion]),
             Background::Investigator
-                => (vec![Skill::Insight, Skill::Investigation], no_choice),
+                => only_forced(vec![Skill::Insight, Skill::Investigation]),
             Background::IronRouteBandit
-                => (vec![Skill::AnimalHandling, Skill::Stealth], no_choice),
+                => only_forced(vec![Skill::AnimalHandling, Skill::Stealth]),
             Background::Knight
-                => (vec![Skill::History, Skill::Persuasion], no_choice),
+                => only_forced(vec![Skill::History, Skill::Persuasion]),
             Background::KnightOfTheOrder
-                => (vec![Skill::Persuasion], (1, vec![Skill::Arcana,
-                                                      Skill::History,
-                                                      Skill::Nature,
-                                                      Skill::Religion])),
+                => Selections::new(
+                    1, vec![Skill::Persuasion], vec![Skill::Arcana,
+                                                     Skill::History,
+                                                     Skill::Nature,
+                                                     Skill::Religion]),
             Background::MercenaryVeteran
-                => (vec![Skill::Athletics, Skill::Persuasion], no_choice),
+                => only_forced(vec![Skill::Athletics, Skill::Persuasion]),
             Background::MulmasterAristocrat
-                => (vec![Skill::Deception, Skill::Performance], no_choice),
+                => only_forced(vec![Skill::Deception, Skill::Performance]),
             Background::Noble
-                => (vec![Skill::History, Skill::Persuasion], no_choice),
+                => only_forced(vec![Skill::History, Skill::Persuasion]),
             Background::Outlander
-                => (vec![Skill::Athletics, Skill::Survival], no_choice),
+                => only_forced(vec![Skill::Athletics, Skill::Survival]),
             Background::PhlanInsurgent
-                => (vec![Skill::Stealth, Skill::Survival], no_choice),
+                => only_forced(vec![Skill::Stealth, Skill::Survival]),
             Background::PhlanRefugee
-                => (vec![Skill::Athletics, Skill::Insight], no_choice),
+                => only_forced(vec![Skill::Athletics, Skill::Insight]),
             Background::Sailor
-                => (vec![Skill::Athletics, Skill::Perception], no_choice),
+                => only_forced(vec![Skill::Athletics, Skill::Perception]),
             Background::Sage
-                => (vec![Skill::Arcana, Skill::History], no_choice),
+                => only_forced(vec![Skill::Arcana, Skill::History]),
             Background::SecretIdentity
-                => (vec![Skill::Deception, Skill::Stealth], no_choice),
+                => only_forced(vec![Skill::Deception, Skill::Stealth]),
             Background::ShadeFanatic
-                => (vec![Skill::Deception, Skill::Intimidation], no_choice),
+                => only_forced(vec![Skill::Deception, Skill::Intimidation]),
             Background::Soldier
-                => (vec![Skill::Athletics, Skill::Intimidation], no_choice),
+                => only_forced(vec![Skill::Athletics, Skill::Intimidation]),
             Background::Spy
-                => (vec![Skill::Deception, Skill::Stealth], no_choice),
+                => only_forced(vec![Skill::Deception, Skill::Stealth]),
             Background::StojanowPrisoner
-                => (vec![Skill::Deception, Skill::Perception], no_choice),
+                => only_forced(vec![Skill::Deception, Skill::Perception]),
             Background::TicklebellyNomad
-                => (vec![Skill::AnimalHandling, Skill::Nature], no_choice),
+                => only_forced(vec![Skill::AnimalHandling, Skill::Nature]),
             Background::TradeSheriff
-                => (vec![Skill::Investigation, Skill::Persuasion], no_choice),
+                => only_forced(vec![Skill::Investigation, Skill::Persuasion]),
             Background::UrbanBountyHunter
-                => (vec![], (2, vec![Skill::Deception,
-                                     Skill::Insight,
-                                     Skill::Persuasion,
-                                     Skill::Stealth])),
+                => Selections::new(2, vec![], vec![Skill::Deception,
+                                                   Skill::Insight,
+                                                   Skill::Persuasion,
+                                                   Skill::Stealth]),
             Background::Urchin
-                => (vec![Skill::SleightOfHand, Skill::Stealth], no_choice),
+                => only_forced(vec![Skill::SleightOfHand, Skill::Stealth]),
             Background::UthgardtTribeMember
-                => (vec![Skill::Athletics, Skill::Survival], no_choice),
+                => only_forced(vec![Skill::Athletics, Skill::Survival]),
             Background::Vizier
-                => (vec![Skill::History, Skill::Religion], no_choice),
+                => only_forced(vec![Skill::History, Skill::Religion]),
             Background::WaterdhavianNoble
-                => (vec![Skill::History, Skill::Persuasion], no_choice)
+                => only_forced(vec![Skill::History, Skill::Persuasion])
         }
     }
 }
