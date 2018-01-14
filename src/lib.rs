@@ -33,7 +33,7 @@ pub use character::{Character};
 pub use class::{Class, ClassFunctions};
 pub use hit_dice::{HitDice};
 pub use language::{Language};
-pub use race::{Race};
+pub use race::{Race, RaceFunctions};
 pub use random::{d6, d8, d10, d12, Selections};
 pub use skill::{Skill};
 pub use weapon::{WeaponProficiency};
