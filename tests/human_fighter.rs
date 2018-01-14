@@ -1,8 +1,8 @@
 
 extern crate dd;
 
-use dd::{
-    Ability, Alignment, Background, Character, Class, Language, Race, Skill};
+use dd::{Alignment, Background, Character, Class, Language, Race, Skill};
+use dd::test::{check_saving_throws, check_skill_modifiers};
 
 #[test]
 fn test_human_fighter() {
@@ -14,36 +14,14 @@ fn test_human_fighter() {
         vec![Skill::Athletics, Skill::History,
              Skill::Intimidation, Skill::Perception],
         16, 9, 15, 13, 11, 14);
+
     assert!(c.can_comprehend(Language::Common));
     assert_eq!(c.languages.len(), 2);
     assert_eq!(c.ac(), 9); // Because no armor
     assert_eq!(c.initiative(), -1);
     assert_eq!(c.speed(), 30);
     assert_eq!(c.exp, 0);
-
-    assert_eq!(c.saving_throw(Ability::Strength), 5);
-    assert_eq!(c.saving_throw(Ability::Dexterity), -1);
-    assert_eq!(c.saving_throw(Ability::Constitution), 4);
-    assert_eq!(c.saving_throw(Ability::Intelligence), 1);
-    assert_eq!(c.saving_throw(Ability::Wisdom), 0);
-    assert_eq!(c.saving_throw(Ability::Charisma), 2);
-
-    assert_eq!(c.skill_check(Skill::Acrobatics), -1);
-    assert_eq!(c.skill_check(Skill::AnimalHandling), 0);
-    assert_eq!(c.skill_check(Skill::Arcana), 1);
-    assert_eq!(c.skill_check(Skill::Athletics), 5);
-    assert_eq!(c.skill_check(Skill::Deception), 2);
-    assert_eq!(c.skill_check(Skill::History), 3);
-    assert_eq!(c.skill_check(Skill::Insight), 0);
-    assert_eq!(c.skill_check(Skill::Intimidation), 4);
-    assert_eq!(c.skill_check(Skill::Investigation), 1);
-    assert_eq!(c.skill_check(Skill::Medicine), 0);
-    assert_eq!(c.skill_check(Skill::Nature), 1);
-    assert_eq!(c.skill_check(Skill::Perception), 2);
-    assert_eq!(c.skill_check(Skill::Performance), 2);
-    assert_eq!(c.skill_check(Skill::Persuasion), 2);
-    assert_eq!(c.skill_check(Skill::Religion), 1);
-    assert_eq!(c.skill_check(Skill::SleightOfHand), -1);
-    assert_eq!(c.skill_check(Skill::Stealth), -1);
-    assert_eq!(c.skill_check(Skill::Survival), 0);
+    check_saving_throws(&c, 5, -1, 4, 1, 0, 2);
+    check_skill_modifiers(
+        &c, -1, 0, 1, 5, 2, 3, 0, 4, 1, 0, 1, 2, 2, 2, 1, -1, -1, 0);
 }
