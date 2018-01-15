@@ -11,9 +11,13 @@ pub struct Selections<T> {
 }
 
 impl<T: Clone + PartialEq> Selections<T> {
+    pub fn forced(forced: Vec<T>) -> Selections<T> {
+        Selections { nb: 0, forced, choices: vec![] }
+    }
+
     pub fn new(
-        nb: usize,
         forced: Vec<T>,
+        nb: usize,
         mut choices: Vec<T>
     ) -> Selections<T> {
         // A forced option can't be in choices

@@ -29,7 +29,7 @@ impl ClassFunctions for Rogue {
     }
 
     fn skills_choice(&self) -> Selections<Skill> {
-        Selections::new(4, vec![], vec![
+        Selections::new(vec![], 4, vec![
 			Skill::Acrobatics, Skill::Athletics, Skill::Deception,
 			Skill::Insight, Skill::Intimidation, Skill::Investigation,
 			Skill::Perception, Skill::Performance, Skill::Persuasion,

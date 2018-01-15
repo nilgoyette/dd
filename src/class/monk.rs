@@ -25,7 +25,7 @@ impl ClassFunctions for Monk {
     }
 
     fn skills_choice(&self) -> Selections<Skill> {
-        Selections::new(2, vec![], vec![
+        Selections::new(vec![], 2, vec![
 			Skill::Acrobatics, Skill::Athletics, Skill::History,
 			Skill::Insight, Skill::Religion, Skill::Stealth])
     }

@@ -29,6 +29,6 @@ impl ClassFunctions for Bard {
     }
 
     fn skills_choice(&self) -> Selections<Skill> {
-        Selections::new(3, vec![], Skill::all())
+        Selections::new(vec![], 3, Skill::all())
     }
 }

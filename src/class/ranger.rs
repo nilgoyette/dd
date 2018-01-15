@@ -24,7 +24,7 @@ impl ClassFunctions for Ranger {
     }
 
     fn skills_choice(&self) -> Selections<Skill> {
-        Selections::new(3, vec![], vec![
+        Selections::new(vec![], 3, vec![
 			Skill::AnimalHandling, Skill::Athletics, Skill::Insight,
 			Skill::Investigation, Skill::Nature, Skill::Perception,
 			Skill::Stealth, Skill::Survival])

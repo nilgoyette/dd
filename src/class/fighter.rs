@@ -22,7 +22,7 @@ impl ClassFunctions for Fighter {
     }
 
     fn skills_choice(&self) -> Selections<Skill> {
-        Selections::new(2, vec![], vec![
+        Selections::new(vec![], 2, vec![
 			Skill::Acrobatics, Skill::AnimalHandling,
 			Skill::Athletics, Skill::History, Skill::Insight,
 			Skill::Intimidation, Skill::Perception, Skill::Survival])

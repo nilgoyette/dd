@@ -22,7 +22,7 @@ impl ClassFunctions for Warlock {
     }
 
     fn skills_choice(&self) -> Selections<Skill> {
-        Selections::new(2, vec![], vec![
+        Selections::new(vec![], 2, vec![
 			Skill::Arcana, Skill::Deception, Skill::History,
 			Skill::Intimidation, Skill::Investigation,
 			Skill::Nature, Skill::Religion])

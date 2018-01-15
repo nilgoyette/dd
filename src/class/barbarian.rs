@@ -24,7 +24,7 @@ impl ClassFunctions for Barbarian {
     }
 
     fn skills_choice(&self) -> Selections<Skill> {
-        Selections::new(2, vec![], vec![
+        Selections::new(vec![], 2, vec![
 			Skill::AnimalHandling, Skill::Athletics,
 			Skill::Intimidation, Skill::Nature,
 			Skill::Perception, Skill::Survival])

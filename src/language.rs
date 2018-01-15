@@ -86,13 +86,13 @@ impl Language {
     pub fn from_race(race: Race) -> Selections<Language> {
         fn common_and(mut languages: Vec<Language>) -> Selections<Language> {
             languages.push(Language::Common);
-            Selections::new(0, languages, vec![])
+            Selections::forced(languages)
         }
         fn common_and_choice(
             mut languages: Vec<Language>
         ) -> Selections<Language> {
             languages.push(Language::Common);
-            Selections::new(1, languages, Language::all())
+            Selections::new(languages, 1, Language::all())
         }
 
         match race {
@@ -109,20 +109,20 @@ impl Language {
             Race::Elf | Race:: HighElf | Race::WoodElf
                 => common_and(vec![Language::Elvish]),
             Race::DarkElf
-                => Selections::new(
-                    0, vec![Language::Elvish, Language::Undercommon], vec![]),
+                => Selections::forced(vec![Language::Elvish,
+                                           Language::Undercommon]),
             Race::Firbolg
                 => common_and(vec![Language::Elvish, Language::Giant]),
             Race::Genasi
                 => common_and(vec![]),
             Race::AirGenasi
-                => Selections::new(0, vec![Language::Auran], vec![]),
+                => Selections::forced(vec![Language::Auran]),
             Race::EarthGenasi
-                => Selections::new(0, vec![Language::Terran], vec![]),
+                => Selections::forced(vec![Language::Terran]),
             Race::FireGenasi
-                => Selections::new(0, vec![Language::Ignan], vec![]),
+                => Selections::forced(vec![Language::Ignan]),
             Race::WaterGenasi
-                => Selections::new(0, vec![Language::Aquan], vec![]),
+                => Selections::forced(vec![Language::Aquan]),
             Race::Gnome | Race::ForestGnome | Race::RockGnome
                 => common_and(vec![Language::Gnomish]),
             Race::DeepGnome
@@ -170,21 +170,21 @@ impl Language {
     ) -> Selections<Language> {
         match background {
             Background::CormanthorRefugee | Background::TradeSheriff
-                => Selections::new(0, vec![Language::Elvish], vec![]),
+                => Selections::forced(vec![Language::Elvish]),
             Background::DragonCasualty
-                => Selections::new(0, vec![Language::Draconic], vec![]),
+                => Selections::forced(vec![Language::Draconic]),
             Background::EarthspurMiner
-                => Selections::new(0, vec![Language::Dwarvish,
-                                           Language::Undercommon], vec![]),
+                => Selections::forced(vec![Language::Dwarvish,
+                                           Language::Undercommon]),
             Background::ShadeFanatic
-                => Selections::new(0, vec![Language::Netherese], vec![]),
+                => Selections::forced(vec![Language::Netherese]),
             Background::TicklebellyNomad
-                => Selections::new(0, vec![Language::Giant], vec![]),
+                => Selections::forced(vec![Language::Giant]),
             Background::Acolyte | Background::Anthropologist |
             Background::CityWatch | Background::CloisteredScholar |
             Background::Courtier | Background::FactionAgent |
             Background::Heretic | Background::Investigator | Background::Sage
-                => Selections::new(2, vec![], Language::all()),
+                => Selections::new(vec![], 2, Language::all()),
             Background::Archaeologist | Background::CaravanSpecialist |
             Background::ClanCrafter | Background::FarTraveler |
             Background::GuildArtisan | Background::GuildMerchant |
@@ -193,9 +193,9 @@ impl Language {
             Background::KnightOfTheOrder | Background::Noble |
             Background::Outlander | Background::PhlanRefugee |
             Background::UthgardtTribeMember | Background::WaterdhavianNoble
-                => Selections::new(1, vec![], Language::all()),
+                => Selections::new(vec![], 1, Language::all()),
             // All others only learn their respective racial language
-            _   => Selections::new(0, vec![], vec![]),
+            _   => Selections::new(vec![], 0, vec![]),
         }
     }
 }

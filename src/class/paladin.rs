@@ -22,7 +22,7 @@ impl ClassFunctions for Paladin {
     }
 
     fn skills_choice(&self) -> Selections<Skill> {
-        Selections::new(2, vec![], vec![
+        Selections::new(vec![], 2, vec![
 			Skill::Athletics, Skill::Insight, Skill::Intimidation,
 			Skill::Medicine, Skill::Persuasion, Skill::Religion])
     }
