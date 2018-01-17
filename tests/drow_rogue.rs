@@ -30,4 +30,5 @@ fn test_drow_rogue() {
     check_saving_throws(&c, -1, 5, 0, 3, 1, 3);
     check_skill_modifiers(
         &c, 3, 1, 1, -1, 5, 1, 3, 3, 3, 1, 1, 3, 3, 5, 1, 5, 5, 1);
+    assert_eq!(c.darkvision(), 120);
 }

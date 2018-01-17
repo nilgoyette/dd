@@ -25,4 +25,5 @@ fn test_dragonborn_sorcerer() {
     check_saving_throws(&c, 0, 1, 4, 0, 1, 5);
     check_skill_modifiers(
         &c, 1, 1, 2, 2, 3, 0, 1, 5, 0, 1, 0, 1, 3, 3, 0, 1, 1, 3);
+    assert_eq!(c.darkvision(), 0);
 }

@@ -96,4 +96,6 @@ pub trait RaceFunctions {
     fn speed(&self) -> usize {
         30
     }
+
+    fn darkvision(&self) -> usize;
 }

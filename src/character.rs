@@ -125,4 +125,8 @@ impl Character {
     pub fn active_perception(&self) -> isize {
         d20() as isize + self.skill_check(Skill::Perception)
     }
+
+    pub fn darkvision(&self) -> usize {
+        self.race.darkvision()
+    }
 }
