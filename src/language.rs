@@ -184,7 +184,7 @@ impl Language {
             Background::CityWatch | Background::CloisteredScholar |
             Background::Courtier | Background::FactionAgent |
             Background::Heretic | Background::Investigator | Background::Sage
-                => Selections::new(vec![], 2, Language::all()),
+                => Selections::choices(2, Language::all()),
             Background::Archaeologist | Background::CaravanSpecialist |
             Background::ClanCrafter | Background::FarTraveler |
             Background::GuildArtisan | Background::GuildMerchant |
@@ -193,7 +193,7 @@ impl Language {
             Background::KnightOfTheOrder | Background::Noble |
             Background::Outlander | Background::PhlanRefugee |
             Background::UthgardtTribeMember | Background::WaterdhavianNoble
-                => Selections::new(vec![], 1, Language::all()),
+                => Selections::choices(1, Language::all()),
             // All others only learn their respective racial language
             _   => Selections::new(vec![], 0, vec![]),
         }

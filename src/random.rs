@@ -7,19 +7,23 @@ use rand::Rng;
 
 #[derive(Clone, PartialEq)]
 pub struct Selections<T> {
-    pub nb: usize,
     pub forced: Vec<T>,
+    pub nb_choices: usize,
     pub choices: Vec<T>
 }
 
 impl<T: Clone + PartialEq> Selections<T> {
     pub fn forced(forced: Vec<T>) -> Selections<T> {
-        Selections { nb: 0, forced, choices: vec![] }
+        Selections { forced, nb_choices: 0, choices: vec![] }
+    }
+
+    pub fn choices(nb_choices: usize, choices: Vec<T>) -> Selections<T> {
+        Selections { forced: vec![], nb_choices, choices }
     }
 
     pub fn new(
         forced: Vec<T>,
-        nb: usize,
+        nb_choices: usize,
         mut choices: Vec<T>
     ) -> Selections<T> {
         // A forced option can't be in choices
@@ -28,18 +32,18 @@ impl<T: Clone + PartialEq> Selections<T> {
                 choices.remove(idx);
             }
         }
-        Selections { nb, forced, choices }
+        Selections { forced, nb_choices, choices }
     }
 
     pub fn auto_select(self) -> Vec<T> {
-        if self.nb == self.choices.len() {
+        if self.nb_choices == self.choices.len() {
             let mut selections = self.forced.clone();
             selections.extend(self.choices);
             return selections;
         }
 
         let mut rng = rand::thread_rng();
-        if self.nb == 1 {
+        if self.nb_choices == 1 {
             let mut selections = self.forced.clone();
             selections.push(rng.choose(&self.choices).unwrap().clone());
             return selections;
@@ -49,7 +53,7 @@ impl<T: Clone + PartialEq> Selections<T> {
         rng.shuffle(&mut all_choices);
 
         let mut selections = self.forced.clone();
-        selections.extend(all_choices[..self.nb].to_vec());
+        selections.extend(all_choices[..self.nb_choices].to_vec());
         selections
     }
 }
@@ -72,7 +76,7 @@ impl<T: Clone + PartialEq> Add for Selections<T> {
             }
         }
 
-        Selections::new(forced, self.nb + rhs.nb, choices)
+        Selections::new(forced, self.nb_choices + rhs.nb_choices, choices)
     }
 }
 
@@ -116,19 +120,19 @@ mod tests {
 
         let s = s1.clone() + Selections::forced(vec![2, 3, 9]);
         assert_eq!(s.forced, vec![1, 2, 3, 9]);
-        assert_eq!(s.nb, 1);
+        assert_eq!(s.nb_choices, 1);
         assert_eq!(s.choices, vec![10, 11, 12]);
 
         let s = s1.clone() + Selections::new(vec![2, 10], 2, vec![12, 13]);
         assert_eq!(s.forced, vec![1, 2, 10]);
-        assert_eq!(s.nb, 3);
+        assert_eq!(s.nb_choices, 3);
         assert_eq!(s.choices, vec![11, 12, 13]);
         assert_eq!(s.auto_select(), vec![1, 2, 10, 11, 12, 13]);
 
         // Same test but with a different ordering
         let s = s1.clone() + Selections::new(vec![10, 2], 2, vec![13, 12]);
         assert_eq!(s.forced, vec![1, 2, 10]);
-        assert_eq!(s.nb, 3);
+        assert_eq!(s.nb_choices, 3);
         assert_eq!(s.choices, vec![11, 12, 13]);
         assert_eq!(s.auto_select(), vec![1, 2, 10, 11, 12, 13]);
     }

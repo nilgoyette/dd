@@ -131,10 +131,10 @@ impl Skill {
                 Selections::forced(vec![Skill::Athletics,
                                         Skill::SleightOfHand]),
             Background::HauntedOne =>
-                Selections::new(vec![], 2, vec![Skill::Arcana,
-                                                Skill::Investigation,
-                                                Skill::Religion,
-                                                Skill::Survival]),
+                Selections::choices(2, vec![Skill::Arcana,
+                                            Skill::Investigation,
+                                            Skill::Religion,
+                                            Skill::Survival]),
             Background::Heretic =>
                 Selections::forced(vec![Skill::Deception, Skill::Religion]),
             Background::Hermit =>
@@ -201,10 +201,10 @@ impl Skill {
                 Selections::forced(vec![Skill::Investigation,
                                         Skill::Persuasion]),
             Background::UrbanBountyHunter =>
-                Selections::new(vec![], 2, vec![Skill::Deception,
-                                                Skill::Insight,
-                                                Skill::Persuasion,
-                                                Skill::Stealth]),
+                Selections::choices(2, vec![Skill::Deception,
+                                            Skill::Insight,
+                                            Skill::Persuasion,
+                                            Skill::Stealth]),
             Background::Urchin =>
                 Selections::forced(vec![Skill::SleightOfHand, Skill::Stealth]),
             Background::UthgardtTribeMember =>
