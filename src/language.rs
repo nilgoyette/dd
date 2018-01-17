@@ -81,6 +81,12 @@ impl Language {
         is_primordial(self.clone()) == is_primordial(rhs)
     }
 
+    pub fn from(race: Race, background: Background) -> Selections<Language> {
+        let r = Language::from_race(race);
+        let b = Language::bonus_from_background(background);
+        r + b
+    }
+
     /// Returns the selection of language(s) (standard and choosen) that a
     /// specific race is supposed to comprehend.
     pub fn from_race(race: Race) -> Selections<Language> {

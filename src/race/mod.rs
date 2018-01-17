@@ -2,11 +2,13 @@
 mod aasimar;
 mod darkelf;
 mod dragonborn;
+mod dwarf;
 mod human;
 
 pub use self::aasimar::Aasimar;
 pub use self::darkelf::DarkElf;
 pub use self::dragonborn::Dragonborn;
+pub use self::dwarf::{Dwarf, DuergarDwarf, HillDwarf, MountainDwarf};
 pub use self::human::Human;
 
 // http://engl393-dnd5th.wikia.com/wiki/D%26D_5E_Adventure_League_Playable_Races
@@ -44,10 +46,10 @@ impl Race {
             Race::Aasimar => Box::new(Aasimar {}),
             //Race::Bugbear => Box::new(Bugbear {}),
             Race::Dragonborn => Box::new(Dragonborn {}),
-            //Race::Dwarf => Box::new(Dwarf {}),
-            //Race::DuergarDwarf => Box::new(DuergarDwarf {}),
-            //Race::HillDwarf => Box::new(HillDwarf {}),
-            //Race::MountainDwarf => Box::new(MountainDwarf {}),
+            Race::Dwarf => Box::new(Dwarf {}),
+            Race::DuergarDwarf => Box::new(DuergarDwarf {}),
+            Race::HillDwarf => Box::new(HillDwarf {}),
+            Race::MountainDwarf => Box::new(MountainDwarf {}),
             //Race::Elf => Box::new(Elf {}),
             //Race::HighElf => Box::new(HighElf {}),
             //Race::WoodElf => Box::new(WoodElf {}),
