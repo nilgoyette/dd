@@ -1,4 +1,6 @@
 
+use std::ops::Add;
+
 use rand;
 use rand::distributions::{IndependentSample, Range};
 use rand::Rng;
@@ -52,6 +54,28 @@ impl<T: Clone + PartialEq> Selections<T> {
     }
 }
 
+impl<T: Clone + PartialEq> Add for Selections<T> {
+    type Output = Selections<T>;
+
+    fn add(self, rhs: Selections<T>) -> Selections<T> {
+        let mut forced = self.forced.clone();
+        for e in rhs.forced {
+            if !forced.contains(&e) {
+                forced.push(e);
+            }
+        }
+
+        let mut choices = self.choices.clone();
+        for e in rhs.choices {
+            if !choices.contains(&e) {
+                choices.push(e);
+            }
+        }
+
+        Selections::new(forced, self.nb + rhs.nb, choices)
+    }
+}
+
 pub fn d6() -> usize {
     let mut rng = rand::thread_rng();
     let between = Range::new(1, 6);
@@ -80,4 +104,32 @@ pub fn d20() -> usize {
     let mut rng = rand::thread_rng();
     let between = Range::new(1, 20);
     between.ind_sample(&mut rng)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_selections_add() {
+        let s1 = Selections::new(vec![1, 2], 1, vec![10, 11, 12]);
+
+        let s = s1.clone() + Selections::forced(vec![2, 3, 9]);
+        assert_eq!(s.forced, vec![1, 2, 3, 9]);
+        assert_eq!(s.nb, 1);
+        assert_eq!(s.choices, vec![10, 11, 12]);
+
+        let s = s1.clone() + Selections::new(vec![2, 10], 2, vec![12, 13]);
+        assert_eq!(s.forced, vec![1, 2, 10]);
+        assert_eq!(s.nb, 3);
+        assert_eq!(s.choices, vec![11, 12, 13]);
+        assert_eq!(s.auto_select(), vec![1, 2, 10, 11, 12, 13]);
+
+        // Same test but with a different ordering
+        let s = s1.clone() + Selections::new(vec![10, 2], 2, vec![13, 12]);
+        assert_eq!(s.forced, vec![1, 2, 10]);
+        assert_eq!(s.nb, 3);
+        assert_eq!(s.choices, vec![11, 12, 13]);
+        assert_eq!(s.auto_select(), vec![1, 2, 10, 11, 12, 13]);
+    }
 }
