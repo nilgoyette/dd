@@ -40,6 +40,17 @@ pub enum Race {
     YuanTiPureblood
 }
 
+// https://roll20.net/compendium/dnd5e/Monsters#content
+#[derive(Clone, Copy, PartialEq)]
+pub enum RaceSize {
+    Tiny,       // Imp, sprite
+    Small,      // Giant rat, goblin
+    Medium,     // Orc, werewolf
+    Large,      // Hippogriff, ogre
+    Huge,       // Fire giant, treant
+    Gargantuan  // Kraken, purple worm
+}
+
 impl Race {
     pub fn new(self) -> Box<RaceFunctions> {
         match self {
@@ -89,13 +100,8 @@ impl Race {
 }
 
 pub trait RaceFunctions {
-    fn base_ac(&self) -> usize {
-        10
-    }
-
-    fn speed(&self) -> usize {
-        30
-    }
-
+    fn base_ac(&self) -> usize;
     fn darkvision(&self) -> usize;
+    fn size(&self) -> RaceSize;
+    fn speed(&self) -> usize;
 }
