@@ -20,7 +20,7 @@ fn test_dwarf_cleric() {
     assert_eq!(c.languages.len(), 3);
     assert_eq!(c.ac(), 9);
     assert_eq!(c.initiative(), -1);
-    assert_eq!(c.speed(), 30);
+    assert_eq!(c.speed(), 25);
     assert_eq!(c.exp, 0);
     check_saving_throws(&c, 2, -1, 2, 0, 5, 3);
     check_skill_modifiers(
