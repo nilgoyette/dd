@@ -41,7 +41,7 @@ pub enum Race {
 }
 
 // https://roll20.net/compendium/dnd5e/Monsters#content
-#[derive(Clone, Copy, PartialEq)]
+#[derive(Clone, Copy, Debug, PartialEq)]
 pub enum RaceSize {
     Tiny,       // Imp, sprite
     Small,      // Giant rat, goblin

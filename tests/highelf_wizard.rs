@@ -1,7 +1,8 @@
 
 extern crate dd;
 
-use dd::{Alignment, Background, Character, Class, Language, Race, Skill};
+use dd::{
+    Alignment, Background, Character, Class, Language, Race, RaceSize, Skill};
 use dd::test::{check_saving_throws, check_skill_modifiers};
 
 #[test]
@@ -15,6 +16,7 @@ fn test_highelf_wizard() {
              Skill::Perception, Skill::Persuasion],
         10, 16, 12, 16, 13, 8);
 
+    assert_eq!(c.size(), RaceSize::Medium);
     assert!(c.can_comprehend(Language::Common));
     assert!(c.can_comprehend(Language::Elvish));
     assert_eq!(c.languages.len(), 3);

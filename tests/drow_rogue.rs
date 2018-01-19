@@ -1,7 +1,8 @@
 
 extern crate dd;
 
-use dd::{Alignment, Background, Character, Class, Language, Race, Skill};
+use dd::{
+    Alignment, Background, Character, Class, Language, Race, RaceSize, Skill};
 use dd::test::{check_saving_throws, check_skill_modifiers};
 
 #[test]
@@ -16,6 +17,7 @@ fn test_drow_rogue() {
              Skill::Stealth],
         8, 16, 10, 13, 12, 16);
 
+    assert_eq!(c.size(), RaceSize::Medium);
     // TODO Unsure of this
     //assert!(c.can_comprehend(Language::Common));
     assert!(c.can_comprehend(Language::Elvish));

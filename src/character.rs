@@ -1,7 +1,7 @@
 
 use random::d20;
 use {Ability, Alignment, Background, Class, ClassFunctions, Language, Modifier,
-     Skill, Race, RaceFunctions};
+     Skill, Race, RaceFunctions, RaceSize};
 
 pub struct Character {
     pub name: String,
@@ -66,6 +66,10 @@ impl Character {
             temporary_hp: 0, // TODO
             current_hp: 0 // TODO
         }
+    }
+
+    pub fn size(&self) -> RaceSize {
+        self.race.size()
     }
 
     pub fn can_comprehend(&self, language: Language) -> bool {
