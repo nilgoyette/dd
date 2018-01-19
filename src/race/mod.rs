@@ -1,12 +1,12 @@
 
 mod aasimar;
-mod darkelf;
+mod elf;
 mod dragonborn;
 mod dwarf;
 mod human;
 
 pub use self::aasimar::Aasimar;
-pub use self::darkelf::DarkElf;
+pub use self::elf::{Elf, HighElf, WoodElf, DarkElf};
 pub use self::dragonborn::Dragonborn;
 pub use self::dwarf::{Dwarf, DuergarDwarf, HillDwarf, MountainDwarf};
 pub use self::human::Human;
@@ -50,9 +50,9 @@ impl Race {
             Race::DuergarDwarf => Box::new(DuergarDwarf {}),
             Race::HillDwarf => Box::new(HillDwarf {}),
             Race::MountainDwarf => Box::new(MountainDwarf {}),
-            //Race::Elf => Box::new(Elf {}),
-            //Race::HighElf => Box::new(HighElf {}),
-            //Race::WoodElf => Box::new(WoodElf {}),
+            Race::Elf => Box::new(Elf {}),
+            Race::HighElf => Box::new(HighElf {}),
+            Race::WoodElf => Box::new(WoodElf {}),
             Race::DarkElf => Box::new(DarkElf {}),
             //Race::Firbolg => Box::new(Firbolg {}),
             //Race::Genasi => Box::new(Genasi {}),
