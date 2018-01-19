@@ -25,4 +25,5 @@ fn test_human_fighter() {
     check_skill_modifiers(
         &c, -1, 0, 1, 5, 2, 3, 0, 4, 1, 0, 1, 2, 2, 2, 1, -1, -1, 0);
     assert_eq!(c.darkvision(), 0);
+    assert_eq!(c.passive_perception(), 12);
 }

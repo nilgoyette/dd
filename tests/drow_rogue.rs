@@ -31,4 +31,7 @@ fn test_drow_rogue() {
     check_skill_modifiers(
         &c, 3, 1, 1, -1, 5, 1, 3, 3, 3, 1, 1, 3, 3, 5, 1, 5, 5, 1);
     assert_eq!(c.darkvision(), 120);
+    // TODO Should be 15, because "Expertise" rogue feature.
+    // 10(base) + 1(dex) + 2(expertise) * 2(proficiency bonus)
+    assert_eq!(c.passive_perception(), 13);
 }

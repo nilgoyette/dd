@@ -26,4 +26,5 @@ fn test_dwarf_cleric() {
     check_skill_modifiers(
         &c, -1, 3, 0, 2, 1, 0, 5, 1, 0, 5, 0, 3, 1, 3, 2, -1, -1, 3);
     assert_eq!(c.darkvision(), 60);
+    assert_eq!(c.passive_perception(), 13);
 }

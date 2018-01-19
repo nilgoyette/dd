@@ -27,4 +27,5 @@ fn test_highelf_wizard() {
         &c, 3, 1, 5, 0, -1, 5, 1, -1, 5, 1, 3, 3, -1, 1, 3, 3, 3, 1);
         //  Ac An Ar At De Hi In In In Me Na Pe Pe Pe Re Sl St Su
     assert_eq!(c.darkvision(), 60);
+    assert_eq!(c.passive_perception(), 13);
 }
