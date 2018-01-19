@@ -10,7 +10,7 @@ fn test_drow_rogue() {
         String::from("drow_rogue"),
         Race::DarkElf, Class::Rogue,
         Background::Charlatan, Alignment::Neutral,
-        Language::from_race(Race::DarkElf).auto_select(),
+        Language::from(Race::DarkElf, Background::Charlatan).auto_select(),
         vec![Skill::Deception, Skill::Insight, Skill::Investigation,
              Skill::Perception, Skill::Persuasion, Skill::SleightOfHand,
              Skill::Stealth],

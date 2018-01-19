@@ -10,7 +10,7 @@ fn test_human_fighter() {
         String::from("fighter"),
         Race::Human, Class::Fighter,
         Background::Soldier, Alignment::ChaoticGood,
-        Language::from_race(Race::Human).auto_select(),
+        Language::from(Race::Human, Background::Soldier).auto_select(),
         vec![Skill::Athletics, Skill::History,
              Skill::Intimidation, Skill::Perception],
         16, 9, 15, 13, 11, 14);

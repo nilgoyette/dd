@@ -10,14 +10,14 @@ fn test_dragonborn_sorcerer() {
         String::from("sorcerer"),
         Race::Dragonborn, Class::Sorcerer,
         Background::Outlander, Alignment::NeutralGood,
-        Language::from_race(Race::Dragonborn).auto_select(),
+        Language::from(Race::Dragonborn, Background::Outlander).auto_select(),
         vec![Skill::Arcana, Skill::Athletics,
              Skill::Intimidation, Skill::Survival],
         10, 13, 14, 10, 12, 16);
 
     assert!(c.can_comprehend(Language::Common));
     assert!(c.can_comprehend(Language::Draconic));
-    assert_eq!(c.languages.len(), 2);
+    assert_eq!(c.languages.len(), 3);
     assert_eq!(c.ac(), 14);
     assert_eq!(c.initiative(), 1);
     assert_eq!(c.speed(), 30);
