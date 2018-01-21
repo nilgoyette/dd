@@ -78,7 +78,7 @@ impl Language {
             || l == Language::Ignan
             || l == Language::Terran
         };
-        is_primordial(self.clone()) == is_primordial(rhs)
+        is_primordial(*self) == is_primordial(rhs)
     }
 
     pub fn from(race: Race, background: Background) -> Selections<Language> {

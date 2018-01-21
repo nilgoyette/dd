@@ -101,7 +101,7 @@ impl Character {
     }
 
     pub fn saving_throw(&self, ability: Ability) -> isize {
-        let base = self.modifier_for(ability.clone());
+        let base = self.modifier_for(ability);
         let bonus = if self.class.saves_on(ability) {
             self.proficiency_bonus as isize
         } else {

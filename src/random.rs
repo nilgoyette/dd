@@ -37,22 +37,22 @@ impl<T: Clone + PartialEq> Selections<T> {
 
     pub fn auto_select(self) -> Vec<T> {
         if self.nb_choices == self.choices.len() {
-            let mut selections = self.forced.clone();
+            let mut selections = self.forced;
             selections.extend(self.choices);
             return selections;
         }
 
         let mut rng = rand::thread_rng();
         if self.nb_choices == 1 {
-            let mut selections = self.forced.clone();
+            let mut selections = self.forced;
             selections.push(rng.choose(&self.choices).unwrap().clone());
             return selections;
         }
 
-        let mut all_choices = self.choices.clone();
+        let mut all_choices = self.choices;
         rng.shuffle(&mut all_choices);
 
-        let mut selections = self.forced.clone();
+        let mut selections = self.forced;
         selections.extend(all_choices[..self.nb_choices].to_vec());
         selections
     }
@@ -62,14 +62,14 @@ impl<T: Clone + PartialEq> Add for Selections<T> {
     type Output = Selections<T>;
 
     fn add(self, rhs: Selections<T>) -> Selections<T> {
-        let mut forced = self.forced.clone();
+        let mut forced = self.forced;
         for e in rhs.forced {
             if !forced.contains(&e) {
                 forced.push(e);
             }
         }
 
-        let mut choices = self.choices.clone();
+        let mut choices = self.choices;
         for e in rhs.choices {
             if !choices.contains(&e) {
                 choices.push(e);
