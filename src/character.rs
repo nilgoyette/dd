@@ -55,16 +55,14 @@ impl Character {
     ) -> Character {
         let race = Race::new(race);
         let class = Class::new(class);
+        let hp = class.hit_dice().first_level(constitution);
         Character {
             proficiency_bonus: class.proficiency_points(1),
             base_ac: race.base_ac() as isize,
             name, race, class, background, alignment, languages, skills,
             strength, dexterity, constitution, intelligence, wisdom, charisma,
-            level: 1,
-            exp: 0,
-            max_hp: 0, // TODO
-            temporary_hp: 0, // TODO
-            current_hp: 0 // TODO
+            level: 1, exp: 0,
+            max_hp: hp, temporary_hp: 0, current_hp: hp
         }
     }
 

@@ -21,6 +21,10 @@ fn test_dwarf_cleric() {
     assert!(c.can_comprehend(Language::Dwarvish));
     assert_eq!(c.languages.len(), 3);
     assert_eq!(c.ac(), 9);
+    // TODO Dwarven Toughness, +1 HP per level
+    assert_eq!(c.max_hp, 10);
+    assert_eq!(c.current_hp, 10);
+    assert_eq!(c.temporary_hp, 0);
     assert_eq!(c.initiative(), -1);
     assert_eq!(c.speed(), 25);
     assert_eq!(c.exp, 0);

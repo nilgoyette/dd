@@ -21,6 +21,10 @@ fn test_dragonborn_sorcerer() {
     assert!(c.can_comprehend(Language::Draconic));
     assert_eq!(c.languages.len(), 3);
     assert_eq!(c.ac(), 14);
+    // TODO Draconic Resilience +1 HP
+    assert_eq!(c.max_hp, 8);
+    assert_eq!(c.current_hp, 8);
+    assert_eq!(c.temporary_hp, 0);
     assert_eq!(c.initiative(), 1);
     assert_eq!(c.speed(), 30);
     assert_eq!(c.exp, 0);

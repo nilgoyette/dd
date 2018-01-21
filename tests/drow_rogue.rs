@@ -25,6 +25,9 @@ fn test_drow_rogue() {
     // TODO Language "thieves’ cant"
     assert_eq!(c.languages.len(), 2);
     assert_eq!(c.ac(), 13);
+    assert_eq!(c.max_hp, 8);
+    assert_eq!(c.current_hp, 8);
+    assert_eq!(c.temporary_hp, 0);
     assert_eq!(c.initiative(), 3);
     assert_eq!(c.speed(), 30);
     assert_eq!(c.exp, 0);
