@@ -31,7 +31,6 @@ fn test_drow_rogue() {
     assert_eq!(c.initiative(), 3);
     assert_eq!(c.speed(), 30);
     assert_eq!(c.exp, 0);
-    // TODO Strength's modifier seems to be 0 here. Find why.
     check_saving_throws(&c, -1, 5, 0, 3, 1, 3);
     check_skill_modifiers(
         &c, 3, 1, 1, -1, 5, 1, 3, 3, 3, 1, 1, 3, 3, 5, 1, 5, 5, 1);
