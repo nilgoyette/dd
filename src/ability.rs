@@ -1,7 +1,7 @@
 
 use Skill;
 
-#[derive(Clone, Copy, PartialEq)]
+#[derive(Clone, Copy, Debug, PartialEq)]
 pub enum Ability {
     Strength,
     Dexterity,

@@ -1,5 +1,5 @@
 
-#[derive(Clone, Copy, PartialEq)]
+#[derive(Clone, Copy, Debug, PartialEq)]
 pub enum WeaponProficiency {
     //Simple,
     Club,

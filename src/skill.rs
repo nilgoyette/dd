@@ -1,7 +1,7 @@
 
 use {Ability, Background, Selections};
 
-#[derive(Clone, Copy, PartialEq)]
+#[derive(Clone, Copy, Debug, PartialEq)]
 pub enum Skill {
     Acrobatics,
     AnimalHandling,

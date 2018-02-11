@@ -1,7 +1,7 @@
 
 use {Background, Class, Race, Selections};
 
-#[derive(Clone, Copy, PartialEq)]
+#[derive(Clone, Copy, Debug, PartialEq)]
 pub enum Language {
     /// Demons, chaotic evil outsiders [Exotic]
     Abyssal,
