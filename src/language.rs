@@ -115,20 +115,19 @@ impl Language {
             Race::Elf | Race:: HighElf | Race::WoodElf
                 => common_and(vec![Language::Elvish]),
             Race::DarkElf
-                => Selections::forced(vec![Language::Elvish,
-                                           Language::Undercommon]),
+                => common_and(vec![Language::Elvish, Language::Undercommon]),
             Race::Firbolg
                 => common_and(vec![Language::Elvish, Language::Giant]),
             Race::Genasi
                 => common_and(vec![]),
             Race::AirGenasi
-                => Selections::forced(vec![Language::Auran]),
+                => common_and(vec![Language::Auran]),
             Race::EarthGenasi
-                => Selections::forced(vec![Language::Terran]),
+                => common_and(vec![Language::Terran]),
             Race::FireGenasi
-                => Selections::forced(vec![Language::Ignan]),
+                => common_and(vec![Language::Ignan]),
             Race::WaterGenasi
-                => Selections::forced(vec![Language::Aquan]),
+                => common_and(vec![Language::Aquan]),
             Race::Gnome | Race::ForestGnome | Race::RockGnome
                 => common_and(vec![Language::Gnomish]),
             Race::DeepGnome

@@ -18,12 +18,11 @@ fn test_drow_rogue() {
         8, 16, 10, 13, 12, 16);
 
     assert_eq!(c.size(), RaceSize::Medium);
-    // TODO Unsure of this
-    //assert!(c.can_comprehend(Language::Common));
+    assert!(c.can_comprehend(Language::Common));
     assert!(c.can_comprehend(Language::Elvish));
     assert!(c.can_comprehend(Language::Undercommon));
     // TODO Language "thieves’ cant"
-    assert_eq!(c.languages.len(), 2);
+    assert_eq!(c.languages.len(), 3);
     assert_eq!(c.ac(), 13);
     assert_eq!(c.max_hp, 8);
     assert_eq!(c.current_hp, 8);
