@@ -35,6 +35,29 @@ impl<T: Clone + PartialEq> Selections<T> {
         Selections { forced, nb_choices, choices }
     }
 
+    pub fn add_forced(&mut self, new_item: T) {
+        //Don't add it if it's already there
+        if self.forced.iter().find(|&x| *x == new_item).is_none() {
+            self.forced.push(new_item.clone());
+
+            // A forced option can't be in choices
+            if let Some(idx) = self.choices.iter().position(
+                |e| *e == new_item)
+            {
+                self.choices.remove(idx);
+            }
+        }
+    }
+
+    pub fn add_choice(&mut self, new_item: T) {
+        // Only add if it's not in forced, nor in choices
+        if self.forced.iter().find(|&x| *x == new_item).is_none() {
+            if self.choices.iter().find(|&x| *x == new_item).is_none() {
+                self.choices.push(new_item);
+            }
+        }
+    }
+
     pub fn auto_select(self) -> Vec<T> {
         if self.nb_choices == self.choices.len() {
             let mut selections = self.forced;
@@ -135,5 +158,31 @@ mod tests {
         assert_eq!(s.nb_choices, 3);
         assert_eq!(s.choices, vec![11, 12, 13]);
         assert_eq!(s.auto_select(), vec![1, 2, 10, 11, 12, 13]);
+    }
+
+    #[test]
+    fn test_selections_update() {
+        let mut s = Selections::new(vec![1, 2], 1, vec![10, 11, 12]);
+        for n in 1..4 {
+            s.add_forced(n);
+        }
+        assert_eq!(s.forced, vec![1, 2, 3]);
+        assert_eq!(s.choices, vec![10, 11, 12]);
+
+        // Should remove in choices
+        s.add_forced(10);
+        assert_eq!(s.forced, vec![1, 2, 3, 10]);
+        assert_eq!(s.choices, vec![11, 12]);
+
+        // Should do nothing
+        s.add_choice(1);
+        s.add_choice(12);
+        assert_eq!(s.forced, vec![1, 2, 3, 10]);
+        assert_eq!(s.choices, vec![11, 12]);
+
+        // Should add a choice
+        s.add_choice(13);
+        assert_eq!(s.forced, vec![1, 2, 3, 10]);
+        assert_eq!(s.choices, vec![11, 12, 13]);
     }
 }
