@@ -219,3 +219,16 @@ impl Language {
         }
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_thieves_cant() {
+        let tc = Language::ThievesCant;
+        let s = Selections::choices(1, Language::all());
+        assert_eq!(s.forced.iter().find(|&&x| x == tc), None);
+        assert_eq!(s.choices.iter().find(|&&x| x == tc), None);
+    }
+}
