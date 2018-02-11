@@ -51,7 +51,7 @@ impl Character {
         constitution: usize,
         intelligence: usize,
         wisdom: usize,
-        charisma: usize,
+        charisma: usize
     ) -> Character {
         let race = Race::new(race);
         let class = Class::new(class);
@@ -64,6 +64,26 @@ impl Character {
             level: 1, exp: 0,
             max_hp: hp, temporary_hp: 0, current_hp: hp
         }
+    }
+
+    pub fn standard(
+        name: String,
+        race: Race,
+        class: Class,
+        background: Background,
+        alignment: Alignment,
+        skills: Vec<Skill>,
+        strength: usize,
+        dexterity: usize,
+        constitution: usize,
+        intelligence: usize,
+        wisdom: usize,
+        charisma: usize
+    ) -> Character {
+        let languages = Language::from(race, class, background).auto_select();
+        Character::new(
+            name, race, class, background, alignment, languages, skills,
+            strength, dexterity, constitution, intelligence, wisdom, charisma)
     }
 
     pub fn size(&self) -> RaceSize {

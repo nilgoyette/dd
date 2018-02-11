@@ -7,13 +7,10 @@ use dd::test::{check_saving_throws, check_skill_modifiers};
 
 #[test]
 fn test_highelf_wizard() {
-    let languages = Language::from(
-        Race::HighElf, Class::Wizard, Background::Noble
-    ).auto_select();
-    let c = Character::new(
+    let c = Character::standard(
         String::from("highelf_wizard"),
         Race::HighElf, Class::Wizard,
-        Background::Noble, Alignment::LawfulGood, languages,
+        Background::Noble, Alignment::LawfulGood,
         vec![Skill::Arcana, Skill::History, Skill::Investigation,
              Skill::Perception, Skill::Persuasion],
         10, 16, 12, 16, 13, 8);
@@ -32,7 +29,6 @@ fn test_highelf_wizard() {
     check_saving_throws(&c, 0, 3, 1, 5, 3, -1);
     check_skill_modifiers(
         &c, 3, 1, 5, 0, -1, 5, 1, -1, 5, 1, 3, 3, -1, 1, 3, 3, 3, 1);
-        //  Ac An Ar At De Hi In In In Me Na Pe Pe Pe Re Sl St Su
     assert_eq!(c.darkvision(), 60);
     assert_eq!(c.passive_perception(), 13);
 }

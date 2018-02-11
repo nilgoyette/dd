@@ -7,13 +7,10 @@ use dd::test::{check_saving_throws, check_skill_modifiers};
 
 #[test]
 fn test_drow_rogue() {
-    let languages = Language::from(
-        Race::DarkElf, Class::Rogue, Background::Charlatan
-    ).auto_select();
-    let c = Character::new(
+    let c = Character::standard(
         String::from("drow_rogue"),
         Race::DarkElf, Class::Rogue,
-        Background::Charlatan, Alignment::Neutral, languages,
+        Background::Charlatan, Alignment::Neutral,
         vec![Skill::Deception, Skill::Insight, Skill::Investigation,
              Skill::Perception, Skill::Persuasion, Skill::SleightOfHand,
              Skill::Stealth],
