@@ -7,11 +7,13 @@ use dd::test::{check_saving_throws, check_skill_modifiers};
 
 #[test]
 fn test_human_fighter() {
+    let languages = Language::from(
+        Race::Human, Class::Fighter, Background::Soldier
+    ).auto_select();
     let c = Character::new(
         String::from("fighter"),
         Race::Human, Class::Fighter,
-        Background::Soldier, Alignment::ChaoticGood,
-        Language::from(Race::Human, Background::Soldier).auto_select(),
+        Background::Soldier, Alignment::ChaoticGood, languages,
         vec![Skill::Athletics, Skill::History,
              Skill::Intimidation, Skill::Perception],
         16, 9, 15, 13, 11, 14);

@@ -7,11 +7,13 @@ use dd::test::{check_saving_throws, check_skill_modifiers};
 
 #[test]
 fn test_highelf_wizard() {
+    let languages = Language::from(
+        Race::HighElf, Class::Wizard, Background::Noble
+    ).auto_select();
     let c = Character::new(
         String::from("highelf_wizard"),
         Race::HighElf, Class::Wizard,
-        Background::Noble, Alignment::LawfulGood,
-        Language::from(Race::HighElf, Background::Noble).auto_select(),
+        Background::Noble, Alignment::LawfulGood, languages,
         vec![Skill::Arcana, Skill::History, Skill::Investigation,
              Skill::Perception, Skill::Persuasion],
         10, 16, 12, 16, 13, 8);

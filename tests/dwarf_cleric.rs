@@ -7,11 +7,13 @@ use dd::test::{check_saving_throws, check_skill_modifiers};
 
 #[test]
 fn test_dwarf_cleric() {
+    let languages = Language::from(
+        Race::HillDwarf, Class::Cleric, Background::GuildArtisan
+    ).auto_select();
     let c = Character::new(
         String::from("dwarf_cleric"),
         Race::HillDwarf, Class::Cleric,
-        Background::GuildArtisan, Alignment::LawfulGood,
-        Language::from(Race::HillDwarf, Background::GuildArtisan).auto_select(),
+        Background::GuildArtisan, Alignment::LawfulGood, languages,
         vec![Skill::Insight, Skill::Medicine,
              Skill::Persuasion, Skill::Religion],
         14, 8, 15, 10, 16, 12);

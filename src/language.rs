@@ -1,5 +1,5 @@
 
-use {Background, Race, Selections};
+use {Background, Class, Race, Selections};
 
 #[derive(Clone, Copy, PartialEq)]
 pub enum Language {
@@ -46,7 +46,10 @@ pub enum Language {
     /// Earth-based
     Terran,
     /// Drow, Underdark traders [Exotic]
-    Undercommon
+    Undercommon,
+    // From specific skills. Do NOT add in Language::all() because they must
+    // never appear in a Selection::choice.
+    ThievesCant
 }
 
 // http://engl393-dnd5th.wikia.com/wiki/Backgrounds
@@ -81,10 +84,15 @@ impl Language {
         is_primordial(*self) == is_primordial(rhs)
     }
 
-    pub fn from(race: Race, background: Background) -> Selections<Language> {
+    pub fn from(
+        race: Race,
+        class: Class,
+        background: Background
+    ) -> Selections<Language> {
         let r = Language::from_race(race);
+        let c = Language::from_class(class);
         let b = Language::bonus_from_background(background);
-        r + b
+        r + c + b
     }
 
     /// Returns the selection of language(s) (standard and choosen) that a
@@ -165,6 +173,13 @@ impl Language {
                 => common_and(vec![Language::Primordial]),
             Race::YuanTiPureblood
                 => common_and(vec![Language::Abyssal, Language::Draconic]),
+        }
+    }
+
+    pub fn from_class(class: Class) -> Selections<Language> {
+        match class {
+            Class::Rogue => Selections::forced(vec![Language::ThievesCant]),
+            _ => Selections::new(vec![], 0, vec![])
         }
     }
 

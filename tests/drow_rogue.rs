@@ -7,11 +7,13 @@ use dd::test::{check_saving_throws, check_skill_modifiers};
 
 #[test]
 fn test_drow_rogue() {
+    let languages = Language::from(
+        Race::DarkElf, Class::Rogue, Background::Charlatan
+    ).auto_select();
     let c = Character::new(
         String::from("drow_rogue"),
         Race::DarkElf, Class::Rogue,
-        Background::Charlatan, Alignment::Neutral,
-        Language::from(Race::DarkElf, Background::Charlatan).auto_select(),
+        Background::Charlatan, Alignment::Neutral, languages,
         vec![Skill::Deception, Skill::Insight, Skill::Investigation,
              Skill::Perception, Skill::Persuasion, Skill::SleightOfHand,
              Skill::Stealth],
@@ -21,8 +23,8 @@ fn test_drow_rogue() {
     assert!(c.can_comprehend(Language::Common));
     assert!(c.can_comprehend(Language::Elvish));
     assert!(c.can_comprehend(Language::Undercommon));
-    // TODO Language "thieves’ cant"
-    assert_eq!(c.languages.len(), 3);
+    assert!(c.can_comprehend(Language::ThievesCant));
+    assert_eq!(c.languages.len(), 4);
     assert_eq!(c.ac(), 13);
     assert_eq!(c.max_hp, 8);
     assert_eq!(c.current_hp, 8);

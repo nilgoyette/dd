@@ -7,11 +7,13 @@ use dd::test::{check_saving_throws, check_skill_modifiers};
 
 #[test]
 fn test_dragonborn_sorcerer() {
+    let languages = Language::from(
+        Race::Dragonborn, Class::Sorcerer, Background::Outlander
+    ).auto_select();
     let c = Character::new(
         String::from("sorcerer"),
         Race::Dragonborn, Class::Sorcerer,
-        Background::Outlander, Alignment::NeutralGood,
-        Language::from(Race::Dragonborn, Background::Outlander).auto_select(),
+        Background::Outlander, Alignment::NeutralGood, languages,
         vec![Skill::Arcana, Skill::Athletics,
              Skill::Intimidation, Skill::Survival],
         10, 13, 14, 10, 12, 16);
