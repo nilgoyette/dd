@@ -5,7 +5,7 @@ pub struct Dragonborn;
 
 impl RaceFunctions for Dragonborn {
     fn base_ac(&self) -> usize {
-        13
+        10
     }
 
     fn darkvision(&self) -> usize {
