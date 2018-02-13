@@ -98,82 +98,70 @@ impl Language {
     /// Returns the selection of language(s) (standard and choosen) that a
     /// specific race is supposed to comprehend.
     pub fn from_race(race: Race) -> Selections<Language> {
-        fn common_and(mut languages: Vec<Language>) -> Selections<Language> {
-            languages.push(Language::Common);
-            Selections::forced(languages)
-        }
-        fn common_and_choice(
-            mut languages: Vec<Language>
-        ) -> Selections<Language> {
-            languages.push(Language::Common);
-            Selections::new(languages, 1, Language::all())
-        }
-
+        let mut s = Selections::new(
+            vec![Language::Common], 0, Language::all());
         match race {
-            Race::Aasimar
-                => common_and(vec![Language::Celestial]),
-            Race::Bugbear
-                => common_and(vec![Language::Goblin]),
-            Race::Dragonborn
-                => common_and(vec![Language::Draconic]),
+            Race::Aasimar => s.add_forced(Language::Celestial),
+            Race::Bugbear => s.add_forced(Language::Goblin),
+            Race::Dragonborn => s.add_forced(Language::Draconic),
             Race::Dwarf | Race::HillDwarf | Race::MountainDwarf
-                => common_and(vec![Language::Dwarvish]),
-            Race::DuergarDwarf
-                => common_and(vec![Language::Dwarvish, Language::Undercommon]),
+                => s.add_forced(Language::Dwarvish),
+            Race::DuergarDwarf => {
+                s.add_forced(Language::Dwarvish);
+                s.add_forced(Language::Undercommon);
+            },
             Race::Elf | Race:: HighElf | Race::WoodElf
-                => common_and(vec![Language::Elvish]),
-            Race::DarkElf
-                => common_and(vec![Language::Elvish, Language::Undercommon]),
-            Race::Firbolg
-                => common_and(vec![Language::Elvish, Language::Giant]),
-            Race::Genasi
-                => common_and(vec![]),
-            Race::AirGenasi
-                => common_and(vec![Language::Auran]),
-            Race::EarthGenasi
-                => common_and(vec![Language::Terran]),
-            Race::FireGenasi
-                => common_and(vec![Language::Ignan]),
-            Race::WaterGenasi
-                => common_and(vec![Language::Aquan]),
+                => s.add_forced(Language::Elvish),
+            Race::DarkElf => {
+                s.add_forced(Language::Elvish);
+                s.add_forced(Language::Undercommon);
+            },
+            Race::Firbolg => {
+                s.add_forced(Language::Elvish);
+                s.add_forced(Language::Giant);
+            },
+            Race::Genasi => {},
+            Race::AirGenasi => s.add_forced(Language::Auran),
+            Race::EarthGenasi => s.add_forced(Language::Terran),
+            Race::FireGenasi => s.add_forced(Language::Ignan),
+            Race::WaterGenasi => s.add_forced(Language::Aquan),
             Race::Gnome | Race::ForestGnome | Race::RockGnome
-                => common_and(vec![Language::Gnomish]),
-            Race::DeepGnome
-                => common_and(vec![Language::Gnomish, Language::Undercommon]),
-            Race::Goblin
-                => common_and(vec![Language::Goblin]),
-            Race::Goliath
-                => common_and(vec![Language::Giant]),
-            Race::HalfElf
-                => common_and_choice(vec![Language::Elvish]),
-            Race::HalfOrc
-                => common_and(vec![Language::Orc]),
+                => s.add_forced(Language::Gnomish),
+            Race::DeepGnome => {
+                s.add_forced(Language::Gnomish);
+                s.add_forced(Language::Undercommon);
+            },
+            Race::Goblin => s.add_forced(Language::Goblin),
+            Race::Goliath => s.add_forced(Language::Giant),
+            Race::HalfElf => s.add_forced(Language::Elvish),
+            Race::HalfOrc => s.add_forced(Language::Orc),
             Race::Halfling | Race::GhostwiseHalfling |
             Race::LightfootHalfling | Race::StoutHalfling
-                => common_and(vec![Language::Halfling]),
-            Race::Hobgoblin
-                => common_and(vec![Language::Goblin]),
-            Race::Human
-                => common_and_choice(vec![]),
-            Race::Kenku
-                => common_and(vec![Language::Auran]),
-            Race::Kobold
-                => common_and(vec![Language::Draconic]),
-            Race::Lizardfolk
-                => common_and(vec![Language::Draconic]),
-            Race::Orc
-                => common_and(vec![Language::Orc]),
-            Race::Tabaxi
-                => common_and_choice(vec![]),
-            Race::Tiefling
-                => common_and(vec![Language::Infernal]),
-            Race::Tortle
-                => common_and(vec![Language::Aquan]),
-            Race::Triton
-                => common_and(vec![Language::Primordial]),
-            Race::YuanTiPureblood
-                => common_and(vec![Language::Abyssal, Language::Draconic]),
+                => s.add_forced(Language::Halfling),
+            Race::Hobgoblin => s.add_forced(Language::Goblin),
+            Race::Human => {},
+            Race::Kenku => s.add_forced(Language::Auran),
+            Race::Kobold => s.add_forced(Language::Draconic),
+            Race::Lizardfolk => s.add_forced(Language::Draconic),
+            Race::Orc => s.add_forced(Language::Orc),
+            Race::Tabaxi => {},
+            Race::Tiefling => s.add_forced(Language::Infernal),
+            Race::Tortle => s.add_forced(Language::Aquan),
+            Race::Triton => s.add_forced(Language::Primordial),
+            Race::YuanTiPureblood => {
+                s.add_forced(Language::Abyssal);
+                s.add_forced(Language::Draconic);
+            }
         }
+
+        // Some races have 1 random language choice
+        if race == Race::HalfElf ||
+           race == Race::Human ||
+           race == Race::Tabaxi {
+            s.nb_choices += 1;
+        }
+
+        s
     }
 
     pub fn from_class(class: Class) -> Selections<Language> {
