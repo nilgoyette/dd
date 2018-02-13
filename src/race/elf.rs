@@ -76,3 +76,22 @@ impl RaceFunctions for DarkElf {
         30
     }
 }
+
+pub struct HalfElf;
+impl RaceFunctions for HalfElf {
+    fn base_ac(&self) -> usize {
+        10
+    }
+
+    fn darkvision(&self) -> usize {
+        60
+    }
+
+    fn size(&self) -> RaceSize {
+        RaceSize::Medium
+    }
+
+    fn speed(&self) -> usize {
+        30
+    }
+}

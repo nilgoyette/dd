@@ -6,7 +6,7 @@ mod dwarf;
 mod human;
 
 pub use self::aasimar::Aasimar;
-pub use self::elf::{Elf, HighElf, WoodElf, DarkElf};
+pub use self::elf::{Elf, HighElf, WoodElf, DarkElf, HalfElf};
 pub use self::dragonborn::Dragonborn;
 pub use self::dwarf::{Dwarf, DuergarDwarf, HillDwarf, MountainDwarf};
 pub use self::human::Human;
@@ -77,7 +77,7 @@ impl Race {
             //Race::DeepGnome => Box::new(DeepGnome {}),
             //Race::Goblin => Box::new(Goblin {}),
             //Race::Goliath => Box::new(Goliath {}),
-            //Race::HalfElf => Box::new(HalfElf {}),
+            Race::HalfElf => Box::new(HalfElf {}),
             //Race::HalfOrc => Box::new(HalfOrc {}),
             //Race::Halfling => Box::new(Halfling {}),
             //Race::GhostwiseHalfling => Box::new(GhostwiseHalfling {}),
