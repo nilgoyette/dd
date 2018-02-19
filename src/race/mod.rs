@@ -100,7 +100,6 @@ impl Race {
 }
 
 pub trait RaceFunctions {
-    fn base_ac(&self) -> usize;
     fn darkvision(&self) -> usize;
     fn size(&self) -> RaceSize;
     fn speed(&self) -> usize;

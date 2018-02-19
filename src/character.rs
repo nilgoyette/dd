@@ -22,7 +22,6 @@ pub struct Character {
     // Calculated
     pub level: usize,
     pub proficiency_bonus: usize,
-    pub base_ac: isize,
 
     // Changed often
     pub exp: usize,
@@ -58,7 +57,6 @@ impl Character {
         let hp = class.hit_dice().first_level(constitution);
         Character {
             proficiency_bonus: class.proficiency_points(1),
-            base_ac: race.base_ac() as isize,
             name, race, class, background, alignment, languages, skills,
             strength, dexterity, constitution, intelligence, wisdom, charisma,
             level: 1, exp: 0,
@@ -95,7 +93,7 @@ impl Character {
     }
 
     pub fn ac(&self) -> isize {
-        self.base_ac + self.dexterity.modifier()
+        10 + self.dexterity.modifier()
     }
 
     pub fn initiative(&self) -> isize {

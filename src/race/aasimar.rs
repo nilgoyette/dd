@@ -4,10 +4,6 @@ use race::{RaceFunctions, RaceSize};
 pub struct Aasimar;
 
 impl RaceFunctions for Aasimar {
-    fn base_ac(&self) -> usize {
-        10
-    }
-
     fn darkvision(&self) -> usize {
         60
     }

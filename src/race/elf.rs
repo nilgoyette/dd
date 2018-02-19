@@ -3,10 +3,6 @@ use race::{RaceFunctions, RaceSize};
 
 pub struct Elf;
 impl RaceFunctions for Elf {
-    fn base_ac(&self) -> usize {
-        10
-    }
-
     fn darkvision(&self) -> usize {
         60
     }
@@ -22,10 +18,6 @@ impl RaceFunctions for Elf {
 
 pub struct HighElf;
 impl RaceFunctions for HighElf {
-    fn base_ac(&self) -> usize {
-        10
-    }
-
     fn darkvision(&self) -> usize {
         60
     }
@@ -41,10 +33,6 @@ impl RaceFunctions for HighElf {
 
 pub struct WoodElf;
 impl RaceFunctions for WoodElf {
-    fn base_ac(&self) -> usize {
-        10
-    }
-
     fn darkvision(&self) -> usize {
         60
     }
@@ -60,10 +48,6 @@ impl RaceFunctions for WoodElf {
 
 pub struct DarkElf;
 impl RaceFunctions for DarkElf {
-    fn base_ac(&self) -> usize {
-        10
-    }
-
     fn darkvision(&self) -> usize {
         120
     }
@@ -79,10 +63,6 @@ impl RaceFunctions for DarkElf {
 
 pub struct HalfElf;
 impl RaceFunctions for HalfElf {
-    fn base_ac(&self) -> usize {
-        10
-    }
-
     fn darkvision(&self) -> usize {
         60
     }
