@@ -2,16 +2,15 @@
 extern crate rand;
 
 mod ability;
-mod armor;
 mod background;
 mod character;
 mod class;
 mod hit_dice;
+mod item;
 mod language;
 mod race;
 mod random;
 mod skill;
-mod weapon;
 
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub enum Alignment {
@@ -27,16 +26,16 @@ pub enum Alignment {
 }
 
 pub use ability::{Ability, Modifier};
-pub use armor::{ArmorProficiency};
 pub use background::{Background};
 pub use character::{Character};
 pub use class::{Class, ClassFunctions};
 pub use hit_dice::{HitDice};
+pub use item::armor::{ArmorProficiency};
+pub use item::weapon::{WeaponProficiency};
 pub use language::{Language};
 pub use race::{Race, RaceFunctions, RaceSize};
 pub use random::{d6, d8, d10, d12, Selections};
 pub use skill::{Skill};
-pub use weapon::{WeaponProficiency};
 
 pub mod test {
     use super::*;

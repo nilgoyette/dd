@@ -1,7 +1,7 @@
 
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub enum WeaponProficiency {
-    //Simple,
+    // Simple,
     Club,
     Dagger,
     GreatClub,
@@ -18,7 +18,7 @@ pub enum WeaponProficiency {
     ShortBow,
     Sling,
 
-    //Martial,
+    // Martial,
     BattleAxe,
     Flail,
     Glaive,
@@ -37,7 +37,7 @@ pub enum WeaponProficiency {
     WarPick,
     WarHammer,
     Whip,
-    Blowgun,
+    BlowGun,
     HandCrossbow,
     HeanvyCrossbow,
     Longbow,
@@ -82,7 +82,7 @@ impl WeaponProficiency {
              WeaponProficiency::WarPick,
              WeaponProficiency::WarHammer,
              WeaponProficiency::Whip,
-             WeaponProficiency::Blowgun,
+             WeaponProficiency::BlowGun,
              WeaponProficiency::HandCrossbow,
              WeaponProficiency::HeanvyCrossbow,
              WeaponProficiency::Longbow,
