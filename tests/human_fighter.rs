@@ -15,11 +15,12 @@ fn test_human_fighter() {
              Skill::Intimidation, Skill::Perception],
         16, 9, 15, 13, 11, 14);
     add_armor(&mut c, "Chain Mail");
+    c.offhand = true;
 
     assert_eq!(c.size(), RaceSize::Medium);
     assert!(c.can_comprehend(Language::Common));
     assert_eq!(c.languages.len(), 2);
-    assert_eq!(c.ac(), 16); // TODO +2 with shield, should be 18
+    assert_eq!(c.ac(), 18);
     assert_eq!(c.max_hp, 12);
     assert_eq!(c.current_hp, 12);
     assert_eq!(c.temporary_hp, 0);

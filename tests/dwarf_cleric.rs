@@ -15,12 +15,13 @@ fn test_dwarf_cleric() {
              Skill::Persuasion, Skill::Religion],
         14, 8, 15, 10, 16, 12);
     add_armor(&mut c, "Chain Mail");
+    c.offhand = true;
 
     assert_eq!(c.size(), RaceSize::Medium);
     assert!(c.can_comprehend(Language::Common));
     assert!(c.can_comprehend(Language::Dwarvish));
     assert_eq!(c.languages.len(), 3);
-    assert_eq!(c.ac(), 16); // TODO +2 with shield, should be 18
+    assert_eq!(c.ac(), 18);
     // TODO Dwarven Toughness, +1 HP per level
     assert_eq!(c.max_hp, 10);
     assert_eq!(c.current_hp, 10);
