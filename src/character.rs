@@ -1,7 +1,8 @@
 
 use random::d20;
-use {Ability, Alignment, Background, Class, ClassFunctions, Language, Modifier,
-     Skill, Race, RaceFunctions, RaceSize};
+use {
+    Ability, Alignment, Armor, Background, Class, ClassFunctions, Language,
+    Modifier, Skill, Race, RaceFunctions, RaceSize};
 
 pub struct Character {
     pub name: String,
@@ -22,6 +23,9 @@ pub struct Character {
     // Calculated
     pub level: usize,
     pub proficiency_bonus: usize,
+
+    // Equipment
+    pub armor: Option<Armor>,
 
     // Changed often
     pub exp: usize,
@@ -59,7 +63,7 @@ impl Character {
             proficiency_bonus: class.proficiency_points(1),
             name, race, class, background, alignment, languages, skills,
             strength, dexterity, constitution, intelligence, wisdom, charisma,
-            level: 1, exp: 0,
+            level: 1, armor: None, exp: 0,
             max_hp: hp, temporary_hp: 0, current_hp: hp
         }
     }
@@ -93,7 +97,12 @@ impl Character {
     }
 
     pub fn ac(&self) -> isize {
-        10 + self.dexterity.modifier()
+        // https://merricb.com/2014/09/13/armour-class-in-dungeons-dragons-5e/
+        let dex_mod = self.dexterity.modifier();
+        match self.armor {
+            Some(ref armor) => armor.base_ac(dex_mod),
+            None => 10 + dex_mod
+        }
     }
 
     pub fn initiative(&self) -> isize {

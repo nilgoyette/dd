@@ -30,8 +30,7 @@ pub use background::Background;
 pub use character::Character;
 pub use class::{Class, ClassFunctions};
 pub use hit_dice::HitDice;
-pub use item::armor::ArmorProficiency;
-pub use item::weapon::WeaponProficiency;
+pub use item::{Armor, ArmorProficiency, WeaponProficiency};
 pub use language::Language;
 pub use race::{Race, RaceFunctions, RaceSize};
 pub use random::{d6, d8, d10, d12, Selections};
@@ -39,6 +38,17 @@ pub use skill::Skill;
 
 pub mod test {
     use super::*;
+    use item::all_armors;
+
+    pub fn add_armor(c: &mut Character, name: &str) {
+        for armor in all_armors() {
+            if armor.item.name == name {
+                c.armor = Some(armor);
+                return;
+            }
+        }
+        panic!("Armor {} doesn't exist.", name);
+    }
 
     pub fn check_saving_throws(
         c: &Character,
