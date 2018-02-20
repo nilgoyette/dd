@@ -1,6 +1,6 @@
 
-use ability::{Modifier};
 use random::{d6, d8, d10, d12};
+use Modifier;
 
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub enum HitDice {
