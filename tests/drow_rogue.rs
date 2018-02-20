@@ -3,11 +3,11 @@ extern crate dd;
 
 use dd::{
     Alignment, Background, Character, Class, Language, Race, RaceSize, Skill};
-use dd::test::{check_saving_throws, check_skill_modifiers};
+use dd::test::{add_armor, check_saving_throws, check_skill_modifiers};
 
 #[test]
 fn test_drow_rogue() {
-    let c = Character::standard(
+    let mut c = Character::standard(
         String::from("drow_rogue"),
         Race::DarkElf, Class::Rogue,
         Background::Charlatan, Alignment::Neutral,
@@ -15,6 +15,7 @@ fn test_drow_rogue() {
              Skill::Perception, Skill::Persuasion, Skill::SleightOfHand,
              Skill::Stealth],
         8, 16, 10, 13, 12, 16);
+    add_armor(&mut c, "Leather");
 
     assert_eq!(c.size(), RaceSize::Medium);
     assert!(c.can_comprehend(Language::Common));
@@ -22,7 +23,7 @@ fn test_drow_rogue() {
     assert!(c.can_comprehend(Language::Undercommon));
     assert!(c.can_comprehend(Language::ThievesCant));
     assert_eq!(c.languages.len(), 4);
-    assert_eq!(c.ac(), 13);
+    assert_eq!(c.ac(), 14);
     assert_eq!(c.max_hp, 8);
     assert_eq!(c.current_hp, 8);
     assert_eq!(c.temporary_hp, 0);

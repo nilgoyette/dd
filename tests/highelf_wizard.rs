@@ -19,7 +19,7 @@ fn test_highelf_wizard() {
     assert!(c.can_comprehend(Language::Common));
     assert!(c.can_comprehend(Language::Elvish));
     assert_eq!(c.languages.len(), 3);
-    assert_eq!(c.ac(), 13); // Because no armor
+    assert_eq!(c.ac(), 13); // Can be 16 with mage armor
     assert_eq!(c.max_hp, 7);
     assert_eq!(c.current_hp, 7);
     assert_eq!(c.temporary_hp, 0);

@@ -3,22 +3,23 @@ extern crate dd;
 
 use dd::{
     Alignment, Background, Character, Class, Language, Race, RaceSize, Skill};
-use dd::test::{check_saving_throws, check_skill_modifiers};
+use dd::test::{add_armor, check_saving_throws, check_skill_modifiers};
 
 #[test]
 fn test_human_fighter() {
-    let c = Character::standard(
-        String::from("fighter"),
+    let mut c = Character::standard(
+        String::from("human_fighter"),
         Race::Human, Class::Fighter,
         Background::Soldier, Alignment::ChaoticGood,
         vec![Skill::Athletics, Skill::History,
              Skill::Intimidation, Skill::Perception],
         16, 9, 15, 13, 11, 14);
+    add_armor(&mut c, "Chain Mail");
 
     assert_eq!(c.size(), RaceSize::Medium);
     assert!(c.can_comprehend(Language::Common));
     assert_eq!(c.languages.len(), 2);
-    assert_eq!(c.ac(), 9); // Because no armor
+    assert_eq!(c.ac(), 16); // TODO +2 with shield, should be 18
     assert_eq!(c.max_hp, 12);
     assert_eq!(c.current_hp, 12);
     assert_eq!(c.temporary_hp, 0);

@@ -8,7 +8,7 @@ use dd::test::{check_saving_throws, check_skill_modifiers};
 #[test]
 fn test_dragonborn_sorcerer() {
     let c = Character::standard(
-        String::from("sorcerer"),
+        String::from("dragonborn_sorcerer"),
         Race::Dragonborn, Class::Sorcerer,
         Background::Outlander, Alignment::NeutralGood,
         vec![Skill::Arcana, Skill::Athletics,
@@ -19,7 +19,7 @@ fn test_dragonborn_sorcerer() {
     assert!(c.can_comprehend(Language::Common));
     assert!(c.can_comprehend(Language::Draconic));
     assert_eq!(c.languages.len(), 3);
-    // TODO Dragon Ancestor +3 AC
+    // TODO Dragon Ancestor +3 AC, should be 14
     assert_eq!(c.ac(), 11);
     // TODO Draconic Resilience +1 HP
     assert_eq!(c.max_hp, 8);

@@ -3,23 +3,24 @@ extern crate dd;
 
 use dd::{
     Alignment, Background, Character, Class, Language, Race, RaceSize, Skill};
-use dd::test::{check_saving_throws, check_skill_modifiers};
+use dd::test::{add_armor, check_saving_throws, check_skill_modifiers};
 
 #[test]
 fn test_dwarf_cleric() {
-    let c = Character::standard(
+    let mut c = Character::standard(
         String::from("dwarf_cleric"),
         Race::HillDwarf, Class::Cleric,
         Background::GuildArtisan, Alignment::LawfulGood,
         vec![Skill::Insight, Skill::Medicine,
              Skill::Persuasion, Skill::Religion],
         14, 8, 15, 10, 16, 12);
+    add_armor(&mut c, "Chain Mail");
 
     assert_eq!(c.size(), RaceSize::Medium);
     assert!(c.can_comprehend(Language::Common));
     assert!(c.can_comprehend(Language::Dwarvish));
     assert_eq!(c.languages.len(), 3);
-    assert_eq!(c.ac(), 9);
+    assert_eq!(c.ac(), 16); // TODO +2 with shield, should be 18
     // TODO Dwarven Toughness, +1 HP per level
     assert_eq!(c.max_hp, 10);
     assert_eq!(c.current_hp, 10);
